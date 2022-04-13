@@ -12,11 +12,10 @@ export class DepartamentoElementService {
         return this.http.get(this.elementApiUrl)
     }
 
-    public getElement(id: number):Observable<any>{
+    getElement(id: number):Observable<any>{
         return this.http.get<DepartamentoElement>(`${this.elementApiUrl}/${id}`)
     }
     
-
     createElement(element: DepartamentoElement):Observable<any>{
         let departamento = {
             nome: element.nome,
@@ -30,10 +29,7 @@ export class DepartamentoElementService {
         return this.http.put(`${this.elementApiUrl}/${element.id}`, element)
     }
 
-    public deleteElement(id: number):Observable<any>{
+    deleteElement(id: number):Observable<any>{
         return this.http.delete(`${this.elementApiUrl}/${id}`)
     } 
-
-
-    
 }
