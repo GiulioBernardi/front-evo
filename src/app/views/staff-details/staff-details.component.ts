@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioElement } from 'src/app/models/FuncionarioElement';
 import { FuncionarioElementService } from 'src/app/services/Funcionario.service';
 import { ElementDialogFuncionarioComponent } from 'src/app/shared/element-dialog-funcionario/element-dialog-funcionario.component';
@@ -20,33 +21,31 @@ export class StaffDetailsComponent implements OnInit {
   dataSource!: FuncionarioElement[];
   data!: []
   id!: string | null | number
+  selectedFile!: File
   atualizarTabelaFuncionario() {
     this.dataSource = []
     this.funcionarioElementService.getElementDependency(Number(this.id))
     .subscribe(data => {
       this.dataSource = data
-    })
+    }) 
   }
-
+  
   constructor(
     public dialog: MatDialog, 
     public funcionarioElementService:FuncionarioElementService, 
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router : Router,
+    private http: HttpClient) {
     this.id = this.route.snapshot.paramMap.get('id')
       this.atualizarTabelaFuncionario()
     }
-  ngOnInit(): void {
-    // this.route.queryParamMap.subscribe((data) => {
-    //   this.id = data.get('id')
-    // })
-
-  }
+  ngOnInit(): void {}
 
   verNumerico(val: string): boolean {
     return !isNaN(Number(val));
   }
   verificador(element: FuncionarioElement): boolean {
-    if (element.nome != '' && element.foto != '' && element.rg != '') {
+    if (element.nome != '' && element.rg != '') {
       if(this.verNumerico(element.rg)==true){
         return true
       }else {
@@ -87,23 +86,39 @@ export class StaffDetailsComponent implements OnInit {
                 this.table.renderRows();
               });
           }else {
-          this.funcionarioElementService.createElement(result, Number(this.id))
-          .subscribe((data: FuncionarioElement) => {
-            this.dataSource.push(data);
-            this.atualizarTabelaFuncionario();
-            this.table.renderRows();
-          });
-      }
-          
-    }else{
-      console.log("Deu ruim")
-    }
+            this.funcionarioElementService.createElement(result, Number(this.id))
+            .subscribe((data: FuncionarioElement) => {
+              this.dataSource.push(data);
+              this.atualizarTabelaFuncionario();
+              this.table.renderRows();
+            });
+          }
+        }else{
+          console.log("Deu ruim")
+        }
       }
     });
-
-
   }
-  
+
+  onFileSelected(event: any){
+    this.selectedFile = <File>event.target.files[0]
+  }
+
+ 
+
+  onUpload(id: number){
+    const fd = new FormData()
+    fd.append('foto', this.selectedFile, this.selectedFile.name)
+    this.http.put(`http://localhost:3333/v1/funcionarios/${id}/upload-image`, fd)
+    .subscribe(res=> {
+      console.log(res)
+    })
+  }
+
+  seePic(element: FuncionarioElement){
+    this.router.navigate([`funcionarios/${element.id}/imagem`])
+  }
+
   editElement(element: FuncionarioElement): void {
     this.openDialog(element);
   }

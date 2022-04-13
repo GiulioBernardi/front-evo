@@ -19,10 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StaffDetailsComponent } from './views/staff-details/staff-details.component';
 import { ElementDialogFuncionarioComponent } from './shared/element-dialog-funcionario/element-dialog-funcionario.component';
-
-
-
-
+import { StaffPicturesComponent } from './views/staff-pictures/staff-pictures.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +29,9 @@ import { ElementDialogFuncionarioComponent } from './shared/element-dialog-funci
     FooterComponent,
     ElementDialogComponent,
     StaffDetailsComponent,
-    ElementDialogFuncionarioComponent
+    ElementDialogFuncionarioComponent,
+    StaffPicturesComponent,
+
   ],
   imports: [
     BrowserModule,

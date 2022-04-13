@@ -5,12 +5,6 @@ import { DepartamentoElement } from 'src/app/models/DepartamentoElement';
 import { ElementDialogComponent } from 'src/app/shared/element-dialog/element-dialog.component';
 import { DepartamentoElementService } from 'src/app/services/Departamento.service';
 import { Router } from '@angular/router';
-
-
-
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

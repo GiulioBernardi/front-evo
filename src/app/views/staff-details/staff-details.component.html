@@ -18,14 +18,23 @@
             <th mat-header-cell *matHeaderCellDef> Opções </th>
             <td mat-cell *matCellDef="let element">
                 <button mat-icon-button (click)="editElement(element)" color="primary">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="deleteElement(element.id)" color="primary" >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <!-- <button mat-icon-button (click)="goToDetails(element)" color="primary" >
-                    <mat-icon>info</mat-icon>
-                  </button> -->
+                  <mat-icon>edit</mat-icon>
+                </button>
+                
+                <button mat-icon-button (click)="deleteElement(element.id)" color="primary" >
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+                
+                <input #fileInput style="display: none" type="file" (change)="onFileSelected($event)" #hiddenfileinput >                  
+                <button type="button" (click)="fileInput.click()" >Selecionar imagem</button>
+                <button type="button" (click)="onUpload(element.id)">Enviar foto</button>
+
+
+                <button mat-icon-button (click)="seePic(element)" color="primary" >
+                  <mat-icon>info</mat-icon>
+                </button>
+
             </td>
             </ng-container>
     
