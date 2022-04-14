@@ -20,6 +20,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StaffDetailsComponent } from './views/staff-details/staff-details.component';
 import { ElementDialogFuncionarioComponent } from './shared/element-dialog-funcionario/element-dialog-funcionario.component';
 import { StaffPicturesComponent } from './views/staff-pictures/staff-pictures.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { StaffPicturesComponent } from './views/staff-pictures/staff-pictures.co
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSlideToggleModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

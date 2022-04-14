@@ -29,6 +29,12 @@ export class DepartamentoElementService {
         return this.http.put(`${this.elementApiUrl}/${element.id}`, element)
     }
 
+    editStatus(element: DepartamentoElement): Observable<any>{
+       console.log(element)
+        return this.http.put(`${this.elementApiUrl}/status/${element.id}`, element)
+    
+    }
+
     deleteElement(id: number):Observable<any>{
         return this.http.delete(`${this.elementApiUrl}/${id}`)
     } 

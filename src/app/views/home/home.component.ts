@@ -59,10 +59,13 @@ export class HomeComponent implements OnInit {
         id: null,
         nome: "",
         sigla: null,
+        ativo: null,
+        
       } : {
         id: element.id,
         nome: element.nome,
         sigla: element.sigla,
+        ativo: element.ativo
       }
     });
 
@@ -93,12 +96,12 @@ export class HomeComponent implements OnInit {
   });
   }
 
-  deleteElement(id: number):void{
-    this.departamentoElementService.deleteElement(id).subscribe(()=> {
-      this.dataSource = this.dataSource.filter(p => p.id !== id)
-
+  deleteElement(element:DepartamentoElement):void{
+    this.departamentoElementService.editStatus(element).subscribe(res=> {
+      this.atualizarTabela();
     })
   }
+
 
   editElement(element:DepartamentoElement):void{
     this.openDialog(element)

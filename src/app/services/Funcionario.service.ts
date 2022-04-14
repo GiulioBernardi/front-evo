@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { FuncionarioElement } from "../models/FuncionarioElement";
 
 @Injectable()
@@ -35,6 +36,11 @@ export class FuncionarioElementService{
     
     deleteElement(id: number):Observable<any>{
         return this.http.delete(`${this.elementApiUrl}/${id}`)
+    }
+
+    editStatus(element: FuncionarioElement): Observable<any>{
+        console.log(element)
+        return this.http.put(`${this.elementApiUrl}/status/${element.id}`, element)
     }
 
     async getImagem(id: number){
