@@ -115,6 +115,12 @@ export class StaffDetailsComponent implements OnInit {
     })
   }
 
+  deleteElement(element: FuncionarioElement):void{
+    this.funcionarioElementService.editStatus(element).subscribe(res=>{
+      this.atualizarTabelaFuncionario()
+    })
+  }
+
   seePic(element: FuncionarioElement){
     this.router.navigate([`funcionarios/${element.id}/imagem`])
   }
@@ -122,10 +128,5 @@ export class StaffDetailsComponent implements OnInit {
   editElement(element: FuncionarioElement): void {
     this.openDialog(element);
   }
-  deleteElement(id: number): void {
-    this.funcionarioElementService.deleteElement(id)
-      .subscribe(() => {
-        this.dataSource = this.dataSource.filter(p => p.id !== id);
-      });
-  }
+
 }
